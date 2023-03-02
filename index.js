@@ -12,9 +12,11 @@ app.post("/contact", (req, res) => {
 
   const transporter = nodemailer.createTransport({
     service: "hotmail",
-    // host: "imap-mail.outlook.com",
+    host: "imap-mail.outlook.com",
     // port: 993,
     // secure: false,
+    secure: true,
+    port: 465,
     auth: {
       user: "wassimbrake@hotmail.com",
       pass: "d2Fzc2ltYnJha2U=",
