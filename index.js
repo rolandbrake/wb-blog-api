@@ -11,21 +11,21 @@ app.post("/contact", (req, res) => {
   console.log(req);
 
   const transporter = nodemailer.createTransport({
-    service: "hotmail",
+    service: "gmail",
     // host: "imap-mail.outlook.com",
     // port: 993,
     // secure: false,
     // secure: true,
     // port: 465,
     auth: {
-      user: "wassimbrake@hotmail.com",
-      pass: "d2Fzc2ltYnJha2U=",
+      user: "rolandbrake92@gmail.com",
+      pass: "jgvfnzajrxrnxhei",
     },
   });
 
   const mailOptions = {
-    from: "wassimbrake@hotmail.com",
-    to: "wassimbrake@hotmail.com",
+    from: "rolandbrake92@gmail.com",
+    to: "rolandbrake92@gmail.com",
     subject: "New contact form submission",
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
   };
@@ -33,7 +33,7 @@ app.post("/contact", (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error(error);
-      res.status(500).send("Error sending email");
+      res.status(500).send(error.message);
     } else {
       console.log("Email sent: " + info.response);
       res.status(200).send("Email sent successfully");
