@@ -1,44 +1,42 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-
+// d2Fzc2ltYnJha2U=
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post("/contact", (req, res) => {
-  const { name, email, message } = req.body;
-  console.log(req);
+app.post("/send", (req, res) => {
+  const { name, email, message, subject } = req.body;
+  console.log(req.body);
 
+  const user = "rolandbrake92@gmail.com";
   const transporter = nodemailer.createTransport({
     service: "gmail",
-    // host: "imap-mail.outlook.com",
-    // port: 993,
-    // secure: false,
-    // secure: true,
-    // port: 465,
     auth: {
-      user: "rolandbrake92@gmail.com",
+      user: user,
       pass: "jgvfnzajrxrnxhei",
     },
   });
 
   const mailOptions = {
-    from: "rolandbrake92@gmail.com",
-    to: "rolandbrake92@gmail.com",
-    subject: "New contact form submission",
+    from: user,
+    to: user,
+    subject,
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error(error);
+      console.error(error.message);
       res.status(500).send(error.message);
     } else {
       console.log("Email sent: " + info.response);
-      res.status(200).send("Email sent successfully");
+      res.status(200).send(info.response);
     }
   });
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+app.listen(process.env.PORT || 8081, () => {
+  console.log("Server running on port:" + (process.env.PORT || 8081));
+});
