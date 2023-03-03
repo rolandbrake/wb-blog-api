@@ -1,21 +1,27 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const cors = require("cors")({ origin: true });
 // d2Fzc2ltYnJha2U=
+// JJCER-2G5C9-KA72Y-N8XLC-K9PWW
+// wcjuwusjblurvwsu
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors);
 
 app.post("/send", (req, res) => {
   const { name, email, message, subject } = req.body;
   console.log(req.body);
 
-  const user = "rolandbrake92@gmail.com";
+  const user = "wassimbrake@hotmail.com";
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    // service: "gmail",
+    service: "hotmail",
     auth: {
       user: user,
-      pass: "jgvfnzajrxrnxhei",
+      // pass: "jgvfnzajrxrnxhei",
+      pass: "wcjuwusjblurvwsu",
     },
   });
 
